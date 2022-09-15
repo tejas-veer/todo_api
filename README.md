@@ -32,8 +32,8 @@ api/tasks - To see all tasks
 api/tasks/<id> - To get particular task
 ```
 
-### api/register
-#### POST
+### api/register - POST
+Input
 ```
 {
 "email" : "your_email@example.com",
@@ -41,8 +41,8 @@ api/tasks/<id> - To get particular task
 }
 ```
 
-### api/tasks
-#### POST
+### api/tasks - POST
+Input
 ```
 {
 "task" : "your_task",
@@ -50,8 +50,8 @@ api/tasks/<id> - To get particular task
 }
 ```
 
-### api/tasks/<id>
-#### PUT
+### api/tasks/<id> - PUT
+Input
 ```
 {
 "task" : "your_updated_task",
