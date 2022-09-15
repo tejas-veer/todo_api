@@ -61,7 +61,7 @@ Input
 
 ### Django Rest Framwork 
 
-You can interact with api using DRF
+You can interact with api using DRF, Postman or Thunder Cilent
 ```
 GET - To get all objects
 POST - Create object
