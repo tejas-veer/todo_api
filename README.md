@@ -32,6 +32,33 @@ api/tasks - To see all tasks
 api/tasks/<id> - To get particular task
 ```
 
+### api/register
+#### POST
+```
+{
+"email" : "your_email@example.com",
+"password" : "your_password"
+}
+```
+
+### api/tasks
+#### POST
+```
+{
+"task" : "your_task",
+"completed" : false
+}
+```
+
+### api/tasks/<id>
+#### PUT
+```
+{
+"task" : "your_updated_task",
+"completed" : true
+}
+```
+
 ### Django Rest Framwork 
 
 You can interact with api using DRF
