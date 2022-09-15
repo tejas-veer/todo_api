@@ -1,6 +1,6 @@
 
 from .models import Task
-from django.contrib.auth.models import User
+from .models import User
 from .serializers import TaskSerializer,UserSerializer
 from rest_framework.decorators import APIView,api_view,permission_classes
 from rest_framework.response import Response 
@@ -8,8 +8,8 @@ from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework.authentication import BasicAuthentication
 from django.http import Http404
 from rest_framework.status  import *
-from django.contrib.auth import logout
-from rest_framework import permissions
+from django.contrib.auth import logout,authenticate,login
+from rest_framework import permissions,serializers
 
 
 
@@ -25,10 +25,11 @@ class TaskList(APIView):
         return Response(serializer.data)                                #Send data 
     
     def post(self , request):                                           #Create new task 
+
         
         serializer = TaskSerializer(data = request.data)                #take data convert into python understandable to JSON
         if serializer.is_valid() :
-            serializer.save()                                           #save data  instance
+            serializer.save(user=request.user)                                           #save data  instance
             return Response(serializer.data) 
         return Response(status=HTTP_400_BAD_REQUEST)                    #if data is not in valid format return 400 error
 
@@ -50,11 +51,12 @@ class TaskDetails(APIView):                                             #acesss 
         except:
             raise Http404                                               #If object is not found raise 404 error
         
-    def get(self , request , pk):                                       #get particular object
+    def get(self , request , pk):  
         task = self.get_object(pk)                                      #get object which id == pk
         if task.user != request.user:                                   #check logged user is owner or not of object
             return Response(status=HTTP_403_FORBIDDEN)
         serializer = TaskSerializer(task)                               
+        print(serializer)                                     #get particular object
         return Response(serializer.data)
     
     def put(self , request , pk):                                       #update object data 
@@ -81,6 +83,15 @@ class UserRegister(APIView):                                            #user re
             user.save()
             return Response(user.data)
         return Response(status=HTTP_400_BAD_REQUEST)
+
+
+# class UserLogin(APIView):                                            #user registeration
+#     def post(self,request):   
+
+#         user = authenticate(username="qwer1234@gmail.com", password="qwer@1234")
+#         if user is not None:
+#             login(request, user)                                      
+#         return Response(status=HTTP_200_OK)
 
 
 class UserLogout(APIView):                                              #user logout
