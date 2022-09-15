@@ -1,6 +1,4 @@
 
-from os import stat
-from urllib import response
 from .models import Task
 from django.contrib.auth.models import User
 from .serializers import TaskSerializer,UserSerializer
