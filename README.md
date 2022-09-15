@@ -9,10 +9,15 @@ Run command :
 pip install -r requirement.txt
 ```
 
-### Run Django Runserver 
+### Start Project 
 Run Command to Start Server
 ```
 python manage.py runserver
+```
+Run to Create tables in database
+```
+python manage.py makemigrations
+python manage.py migrate
 ```
 
 Open 
