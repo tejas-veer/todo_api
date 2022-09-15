@@ -25,6 +25,7 @@ class TaskList(APIView):
         return Response(serializer.data)                                #Send data 
     
     def post(self , request):                                           #Create new task 
+        
         serializer = TaskSerializer(data = request.data)                #take data convert into python understandable to JSON
         if serializer.is_valid() :
             serializer.save()                                           #save data  instance
@@ -83,6 +84,6 @@ class UserRegister(APIView):                                            #user re
 
 
 class UserLogout(APIView):                                              #user logout
-    def get(self,request):
+    def get(self,request,format=None):
         logout(request)
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=HTTP_200_OK)

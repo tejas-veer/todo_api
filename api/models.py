@@ -54,10 +54,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         return "/users/%i/" % (self.pk)
 
 class Task(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE , null=True)
     task = models.CharField(max_length=100)
     date = models.DateField(auto_now_add=True)
-    completed = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False , blank=True)
 
     def __str__(self):
         return self.task

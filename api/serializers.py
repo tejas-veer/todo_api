@@ -8,6 +8,9 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)  
+    
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
