@@ -84,7 +84,9 @@ class TaskDetails(APIView):  # acesss single object
 class UserRegister(APIView):  # user registeration
     def post(self, request):
         try:
-            check_user = User.objects.get(email=request.data.get("email"))
+            check_user = User.objects.get(
+                email=request.data.get("email")
+            )  # check user exist or not
         except:
             check_user = None
         if check_user is None:
@@ -99,7 +101,9 @@ class UserRegister(APIView):  # user registeration
 class UserLogin(APIView):  # user login
     def post(self, request):
         data = request.data
-        user = authenticate(email=data.get("email"), password=data.get("password"))
+        user = authenticate(
+            email=data.get("email"), password=data.get("password")
+        )  # check user credentials
         if user is not None:
             login(request, user)
             return Response(status=HTTP_200_OK)
