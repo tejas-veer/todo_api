@@ -41,6 +41,15 @@ Input
 }
 ```
 
+### api/login - POST
+Input
+```
+{
+"email" : "your_email@example.com",
+"password" : "your_password"
+}
+```
+
 ### api/tasks - POST
 Input
 ```
