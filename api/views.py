@@ -83,20 +83,27 @@ class TaskDetails(APIView):  # acesss single object
 
 class UserRegister(APIView):  # user registeration
     def post(self, request):
-        user = UserSerializer(data=request.data)
-        if user.is_valid():
-            user.save()
-            return Response(user.data)
-        return Response(status=HTTP_400_BAD_REQUEST)
+        try:
+            check_user = User.objects.get(email=request.data.get('email'))
+        except:
+            check_user = None
+        if check_user is None:
+            user = UserSerializer(data=request.data)
+            if user.is_valid():
+                user.save()
+                return Response(user.data)
+            return Response(status=HTTP_400_BAD_REQUEST)
+        return Response(status=HTTP_409_CONFLICT)
 
-
-# class UserLogin(APIView):                                            #user registeration
-#     def post(self,request):
-
-#         user = authenticate(username="qwer1234@gmail.com", password="qwer@1234")
-#         if user is not None:
-#             login(request, user)
-#         return Response(status=HTTP_200_OK)
+class UserLogin(APIView):                                            #user login
+    def post(self,request):
+        
+        data = request.data
+        user = authenticate(email=data.get('email'), password=data.get('password'))
+        if user is not None:
+            login(request, user)
+            return Response(status=HTTP_200_OK)
+        return Response(status=HTTP_404_NOT_FOUND)
 
 
 class UserLogout(APIView):  # user logout
